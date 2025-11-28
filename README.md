@@ -1,102 +1,106 @@
-# PROJECT FINTECH – Plataforma Financeira
+# Projeto Fintech Integrado (Spring Boot + ReactJS)
 
-Este repositório contém o **PROJECT FINTECH**, um sistema desenvolvido com foco em organização financeira, visualização de gastos, controle de despesas, metas e recursos de apoio ao usuário.  
-O projeto reúne toda a interface visual, páginas HTML, arquivos CSS/JS e os materiais utilizados no desenvolvimento.
+Este projeto implementa um sistema de gerenciamento financeiro pessoal (Fintech) utilizando Spring Boot para o Backend e ReactJS para o Frontend, com persistência de dados no Oracle Database.
 
----
+## 1. Tecnologias Utilizadas
 
-## 🚀 Sobre o Projeto
+| Componente | Tecnologia | Versão Principal |
+| :--- | :--- | :--- |
+| **Backend** | Java / Spring Boot | 3.2.0 |
+| **Banco de Dados** | Oracle Database | (FIAP Instance) |
+| **Persistência** | Spring Data JPA / Hibernate | - |
+| **Frontend** | ReactJS | 18.x |
+| **Rotas** | React Router DOM | 6.x |
+| **Comunicação API** | Axios | - |
 
-O **PROJECT FINTECH** foi criado com a proposta de oferecer uma plataforma clara e eficiente para auxiliar usuários no gerenciamento financeiro pessoal, incluindo:
+## 2. Estrutura das Entidades
 
-- Controle de receitas e despesas  
-- Gráficos e dashboards financeiros  
-- Simulação de metas  
-- Perfil do usuário  
-- Interface amigável e educativa  
-- Organização por categorias
+O projeto foi desenvolvido para as 6 entidades solicitadas, com CRUD (GET, POST, PUT, DELETE) completo implementado para as 3 entidades principais: **Usuário**, **Categoria** e **Gasto**.
 
-O layout e as páginas estão preparadas para integração futura com APIs e banco de dados.
+| Entidade | Descrição | CRUD Completo? |
+| :--- | :--- | :--- |
+| **Usuario** | Informações de login e perfil. | Sim |
+| **Categoria** | Categorias de gastos e receitas (Ex: Alimentação, Salário). | Sim |
+| **Gasto** | Registro de despesas do usuário. | Sim |
+| **Receita** | Registro de entradas financeiras. | Não (Somente Model/Repository) |
+| **Transacao** | Representação genérica de movimentação. | Não (Somente Model/Repository) |
+| **Movimentacao** | Registro de movimentações financeiras. | Não (Somente Model/Repository) |
 
----
+## 3. Instruções de Inicialização (Backend)
 
-## 📂 Estrutura Geral do Projeto
+O Backend é um projeto Maven Spring Boot.
 
-PROJECT_FINTECH/
-│
-├── pages/ # Páginas HTML principais
-│ ├── login.html
-│ ├── cadastro.html
-│ ├── dashboard.html
-│ ├── despesas.html
-│ ├── receitas.html
-│ ├── graficos.html
-│ ├── metas.html
-│ └── perfil.html
-│
-├── assets/ # Imagens, ícones, logos, backgrounds
-│
-├── css/ # Folhas de estilo
-│
-├── js/ # Scripts de interação e lógica básica
-│
-├── docs/ # PDFs, protótipos e documentos auxiliares
-│
-├── .git
-├── .gitattributes
-└── .vscode
+### 3.1. Pré-requisitos
+*   JDK 17 ou superior.
+*   Maven.
+*   Acesso à instância Oracle da FIAP.
 
-yaml
-Copiar código
+### 3.2. Configuração do Banco de Dados
 
-*(A estrutura acima segue o padrão comum de projetos similares — ajuste conforme seus arquivos reais.)*
+1.  **Localize o arquivo:** `fintech-project/backend/src/main/resources/application.properties`
+2.  **A configuração de conexão já foi ajustada** com base nas informações fornecidas:
 
----
+    ```properties
+    spring.datasource.url=jdbc:oracle:thin:@//oracle.fiap.com.br:1521/ORCL
+    spring.datasource.username=RM561351
+    spring.datasource.password=310703
+    ```
 
-## 🛠️ Tecnologias Utilizadas
+### 3.3. Execução
 
-- **HTML5** para estrutura  
-- **CSS3** para layout, estilização e identidade visual  
-- **JavaScript** para lógica, interatividade e simulações  
-- Documentos em **PDF/PNG** para documentação e protótipo visual  
+1.  Navegue até o diretório `fintech-project/backend`.
+2. Execute o comando para compilar e rodar a aplicação. **ATENÇÃO:** O comando varia dependendo do seu sistema operacional::
 
----
+    ```bash
+    # Para Linux/macOS
+    ./mvnw spring-boot:run
+    
+    # Para Windows (PowerShell/CMD)
+    .\mvnw.cmd spring-boot:run
+    ```
 
-## 📌 Funcionalidades do Sistema
+A API estará disponível em `http://localhost:8080/api`.
 
-- **Login e Cadastro**  
- Fluxo inicial para criação e acesso de usuários.
+## 4. Instruções de Inicialização (Frontend)
 
-- **Dashboard**  
- Visão completa dos gastos, entradas, alertas e resumo financeiro.
+O Frontend é um projeto ReactJS.
 
-- **Controle de Despesas e Receitas**  
- Páginas dedicadas ao registro, visualização e organização.
+### 4.1. Pré-requisitos
+*   Node.js (v18 ou superior).
+*   npm ou pnpm.
 
-- **Gráficos**  
- Visualizações simples para acompanhamento financeiro.
+### 4.2. Execução
 
-- **Metas**  
- Criação e controle de objetivos financeiros.
+1.  Navegue até o diretório `fintech-project/frontend`.
+2.  Instale as dependências:
 
-- **Perfil do Usuário**  
- Informações pessoais e configurações.
+    ```bash
+    npm install
+    # ou pnpm install
+    ```
 
----
+3.  Inicie a aplicação:
 
-## 📎 Conteúdo Adicional Incluído
+    ```bash
+    npm start
+    ```
 
-- Modelos e protótipos do sistema  
-- Slides e apresentações usadas no desenvolvimento  
-- Assets visuais da identidade FINTECH  
-- PDFs explicativos  
+O Frontend será aberto automaticamente no seu navegador em `http://localhost:3000` (ou porta similar).
 
----
+## 5. Dados de Autenticação do Usuário de Teste (Login)
 
-## ▶️ Como Rodar o Projeto Localmente
+Para acessar o sistema, utilize as seguintes credenciais de teste (que serão criadas automaticamente no primeiro login, se não existirem):
 
-Clone o repositório:
+| Campo | Valor |
+| :--- | :--- |
+| **Login (Email)** | `RM561351@fiap.com.br` |
+| **Senha** | `310703` |
 
-```bash
-git clone https://github.com/seu-usuario/seu-repo.git
-cd PROJECT_FINTECH
+## 6. Teste de Ponta a Ponta
+
+Após iniciar o Backend e o Frontend:
+
+1.  Acesse `http://localhost:3000`.
+2.  Faça login com as credenciais de teste.
+3.  Navegue para **Categorias** e **Gastos** para testar as operações de CRUD.
+4.  Verifique se os dados estão sendo persistidos corretamente no seu banco de dados Oracle.
